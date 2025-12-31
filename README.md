@@ -66,10 +66,12 @@ employee-management-system
 ### 1️⃣ Backend (Spring Boot)
 
 Import ems-backend in Spring tool suite, select the root and click on run as spring boot app.
+(File > Import > Maven > Existing Maven Projects > select ems-backend)
 
 Backend will start on:
 http://localhost:9090
-2️⃣ Frontend (React)
+
+### 1️⃣ Frontend (React)
 cd ems-frontend
 npm install
 npm run dev
