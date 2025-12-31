@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Badge */
+.badge {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.badge.success {
+  background: var(--success-bg);
+  color: var(--success-text);
+}
+
+.badge.warning {
+  background: var(--warning-bg);
+  color: var(--warning-text);
+}

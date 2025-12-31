@@ -1,0 +1,88 @@
+:root {
+  /* ================= Typography ================= */
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+
+  /* ================= Radius ================= */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* ================= Spacing ================= */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+
+  /* ================= Light Theme ================= */
+  --bg-main: #f8fafc;
+  --bg-surface: #ffffff;
+
+  --text-primary: #18181b;
+  --text-muted: #71717a;
+
+  --border-subtle: #e4e4e7;
+
+  /* ================= Accent & Status ================= */
+  --accent: #2563eb;
+  --accent-hover: #1e40af;
+
+  --success-bg: #dcfce7;
+  --success-text: #166534;
+
+  --warning-bg: #fef9c3;
+  --warning-text: #854d0e;
+
+  --danger: #dc2626;
+
+  /* ================= Shadows ================= */
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+  /* Table row hover */
+  --row-hover: #f5f7fa;
+
+    /* ================= Inputs (Light) ================= */
+  --input-bg: #ffffff;
+  --input-text: #18181b;
+  --input-border: #d4d4d8;
+  --input-placeholder: #71717a;
+  --input-focus-ring: rgba(37, 99, 235, 0.35);
+
+}
+
+/* ================= Dark Theme ================= */
+[data-theme="dark"] {
+  --bg-main: #09090b;
+  --bg-surface: #18181b;
+
+  --text-primary: #f4f4f5;
+  --text-muted: #a1a1aa;
+
+  --border-subtle: #27272a;
+
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+
+  --success-bg: #14532d;
+  --success-text: #dcfce7;
+
+  --warning-bg: #713f12;
+  --warning-text: #fef9c3;
+
+  --danger: #f87171;
+  --row-hover: #1f2933;
+
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.6);
+
+    /* ================= Inputs (Dark) ================= */
+  --input-bg: #0f0f12;
+  --input-text: #f4f4f5;
+  --input-border: #3f3f46;
+  --input-placeholder: #a1a1aa;
+  --input-focus-ring: rgba(59, 130, 246, 0.45);
+
+}

@@ -1,0 +1,74 @@
+/* ================= Reset ================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+/* ================= Base ================= */
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Buttons baseline */
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Utility */
+.text-muted {
+  color: var(--text-muted);
+}
+
+input,
+textarea {
+  background: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-md);
+  padding: 0.7rem 0.85rem;
+  font-family: var(--font-sans);
+}
+
+/* Placeholder */
+input::placeholder,
+textarea::placeholder {
+  color: var(--input-placeholder);
+}
+
+/* Focus state */
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--input-focus-ring);
+}
