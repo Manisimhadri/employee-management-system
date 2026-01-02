@@ -7,6 +7,9 @@ public class AdminDashboardResponse {
 	private long totalEmployees;
 	private double totalSalary;
 	private Map<String,Long> departmentWiseCount;
+	private long activeEmployees;
+	private long inactiveEmployees;
+
 	
 	public AdminDashboardResponse(long totalEmployees, double totalSalary,
 			Map<String,Long> departmentWiseCount) {
