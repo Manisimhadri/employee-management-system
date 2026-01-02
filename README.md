@@ -130,7 +130,7 @@ Backend will start at:
 http://localhost:9090
 
 
-### 2️⃣ Frontend (React)
+### ```2️⃣ Frontend (React)```
 
 #### Open terminal
 
