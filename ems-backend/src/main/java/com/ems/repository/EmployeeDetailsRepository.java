@@ -13,4 +13,6 @@ public interface EmployeeDetailsRepository extends JpaRepository<EmployeeDetails
 
     @Query("SELECT e.department, COUNT(e) FROM EmployeeDetails e GROUP BY e.department")
     List<Object[]> countEmployeesByDepartment();
+    
+    
 }

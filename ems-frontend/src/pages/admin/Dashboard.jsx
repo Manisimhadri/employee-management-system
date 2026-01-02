@@ -48,6 +48,23 @@ export default function Dashboard() {
         <h2>{Object.keys(stats.departmentWiseCount).length}</h2>
       </article>
 
+      <article className="stat-card">
+  <div className="stat-header">
+    <span className="stat-icon">✅</span>
+    <p>Active Employees</p>
+  </div>
+  <h2>{stats.activeEmployees}</h2>
+</article>
+
+<article className="stat-card">
+  <div className="stat-header">
+    <span className="stat-icon">⏸️</span>
+    <p>Inactive Employees</p>
+  </div>
+  <h2>{stats.inactiveEmployees}</h2>
+</article>
+
+
     </section>
   </section>
 );

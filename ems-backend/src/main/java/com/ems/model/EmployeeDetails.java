@@ -20,6 +20,8 @@ public class EmployeeDetails {
     private String department;
     private String designation;
     private Double salary;
+    
+    
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)

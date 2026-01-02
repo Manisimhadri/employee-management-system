@@ -7,6 +7,7 @@ import com.ems.dto.AdminDashboardResponse;
 import com.ems.dto.CreateEmployeeRequest;
 import com.ems.dto.EmployeePersonalDetailsResponse;
 import com.ems.dto.EmployeeResponse;
+import com.ems.model.Status;
 
 public interface AdminService {
 	
@@ -24,4 +25,12 @@ public interface AdminService {
 	void deleteEmployee(Long id);
 	
 	EmployeePersonalDetailsResponse getEmployeePersonalDetails(Long employeeId);
+	
+	List<EmployeeResponse> getEmployeesByStatus(Status status);
+	
+	void restoreEmployee(Long id);
+
+	void permanentlyDeleteEmployee(Long id);
+
+
 }

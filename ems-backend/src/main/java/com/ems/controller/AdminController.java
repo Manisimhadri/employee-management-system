@@ -7,6 +7,7 @@ import com.ems.service.AdminService;
 import com.ems.dto.CreateEmployeeRequest;
 import com.ems.dto.EmployeePersonalDetailsResponse;
 import com.ems.dto.EmployeeResponse;
+import com.ems.model.Status;
 
 import java.util.HashMap;
 import java.util.List;
@@ -65,5 +66,21 @@ public class AdminController {
         return adminService.getDashboardData();
     }
 
-    
+    @GetMapping("/employees/inactive")
+    public List<EmployeeResponse> getInactiveEmployees() {
+        return adminService.getEmployeesByStatus(Status.INACTIVE);
+    }
+
+    @PutMapping("/employees/restore/{id}")
+    public String restoreEmployee(@PathVariable Long id) {
+        adminService.restoreEmployee(id);
+        return "Employee Restored Successfully";
+    }
+
+    @DeleteMapping("/employees/permanent/{id}")
+    public String permanentlyDeleteEmployee(@PathVariable Long id) {
+        adminService.permanentlyDeleteEmployee(id);
+        return "Employee permanently deleted";
+    }
+
 }

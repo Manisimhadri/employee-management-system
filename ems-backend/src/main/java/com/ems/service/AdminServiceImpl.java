@@ -42,13 +42,22 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public AdminDashboardResponse getDashboardData() {
 
-        long totalEmployees = userRepository.countByRole(Role.EMPLOYEE);
 
         Double salarySum = employeeDetailsRepository.getTotalSalary();
         double totalSalary = salarySum != null ? salarySum : 0;
 
         List<Object[]> deptData = employeeDetailsRepository.countEmployeesByDepartment();
         Map<String, Long> deptCountMap = new HashMap<>();
+        
+        long totalEmployees = userRepository.countByRole(Role.EMPLOYEE);
+
+        long activeCount =
+                userRepository.countByRoleAndStatus(Role.EMPLOYEE, Status.ACTIVE);
+
+        long inactiveCount =
+                userRepository.countByRoleAndStatus(Role.EMPLOYEE, Status.INACTIVE);
+
+
 
         if (deptData != null) {
             for (Object[] row : deptData) {
@@ -63,7 +72,9 @@ public class AdminServiceImpl implements AdminService{
         return new AdminDashboardResponse(
                 totalEmployees,
                 totalSalary,
-                deptCountMap
+                deptCountMap,
+                activeCount,
+                inactiveCount
         );
     	//return new AdminDashboardResponse(0, 0, new HashMap<>());
     }
@@ -100,26 +111,27 @@ public class AdminServiceImpl implements AdminService{
 
     // ---------- READ ALL ----------
 	@Override
-	public List<EmployeeResponse> getAllEmployees(){
-		return userRepository.findAll()
-				.stream()
-				.filter(u -> u.getRole() == Role.EMPLOYEE)
-				.map(u -> {
-					EmployeeDetails d = u.getEmployeeDetails();
-					
-					return new EmployeeResponse(
-							u.getId(),
-							u.getName(),
-							u.getEmail(),
-							u.getRole().name(),
-							d != null ? d.getDepartment() :null,
-							d != null ? d.getDesignation() : null,
-							d != null ? d.getSalary() : null
-									
-							);
-				})
-				.collect(Collectors.toList());
+	public List<EmployeeResponse> getAllEmployees() {
+
+		List<User> users =
+		        userRepository.findByRoleAndStatus(Role.EMPLOYEE, Status.ACTIVE);
+
+
+	    return users.stream().map(user -> {
+	        EmployeeDetails d = user.getEmployeeDetails();
+
+	        return new EmployeeResponse(
+	                user.getId(),
+	                user.getName(),
+	                user.getEmail(),
+	                user.getRole().name(),
+	                d != null ? d.getDepartment() : null,
+	                d != null ? d.getDesignation() : null,
+	                d != null ? d.getSalary() : null
+	        );
+	    }).toList();
 	}
+
 
     // ---------- READ ONE ----------
     @Override
@@ -160,8 +172,15 @@ public class AdminServiceImpl implements AdminService{
     // ---------- DELETE ----------
     @Override
     public void deleteEmployee(Long id) {
-        userRepository.deleteById(id);
+
+        User user = userRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
+
+        user.setStatus(Status.INACTIVE);
+
+        userRepository.save(user);
     }
+
     
     
     @Override
@@ -187,4 +206,50 @@ public class AdminServiceImpl implements AdminService{
     			);
     			
     }
+    
+    @Override
+    public List<EmployeeResponse> getEmployeesByStatus(Status status) {
+
+        List<User> users = userRepository.findByStatus(status);
+
+        return users.stream().map(user -> {
+            EmployeeDetails d = user.getEmployeeDetails();
+
+            return new EmployeeResponse(
+                    user.getId(),
+                    user.getName(),
+                    user.getEmail(),
+                    user.getRole().name(),
+                    d != null ? d.getDepartment() : null,
+                    d != null ? d.getDesignation() : null,
+                    d != null ? d.getSalary() : null
+            );
+        }).toList();
+    }
+
+    @Override
+    public void restoreEmployee(Long id) {
+
+        User user = userRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
+
+        user.setStatus(Status.ACTIVE);
+        userRepository.save(user);
+    }
+    
+    //--------------DELETE PERMANANTLY-----------//
+    @Override
+    public void permanentlyDeleteEmployee(Long id) {
+
+        User user = userRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
+
+        if (user.getRole() != Role.EMPLOYEE) {
+            throw new BadRequestException("Cannot delete admin user");
+        }
+
+        userRepository.delete(user);
+    }
+
+
 }
