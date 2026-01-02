@@ -67,7 +67,9 @@ public class AdminServiceImpl implements AdminService{
         return new AdminDashboardResponse(
                 totalEmployees,
                 totalSalary,
-                deptCountMap
+                deptCountMap,
+                activeCount,
+                inactiveCount
         );
     	//return new AdminDashboardResponse(0, 0, new HashMap<>());
     }

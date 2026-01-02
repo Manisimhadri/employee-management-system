@@ -11,13 +11,20 @@ public class AdminDashboardResponse {
 	private long inactiveEmployees;
 
 	
-	public AdminDashboardResponse(long totalEmployees, double totalSalary,
-			Map<String,Long> departmentWiseCount) {
-		
-		this.departmentWiseCount = departmentWiseCount;
-		this.totalEmployees = totalEmployees;
-		this.totalSalary = totalSalary;
+	public AdminDashboardResponse(
+	        long totalEmployees,
+	        double totalSalary,
+	        Map<String, Long> departmentCounts,
+	        long activeEmployees,
+	        long inactiveEmployees
+	) {
+	    this.totalEmployees = totalEmployees;
+	    this.totalSalary = totalSalary;
+	    this.departmentWiseCount = departmentCounts;
+	    this.activeEmployees = activeEmployees;
+	    this.inactiveEmployees = inactiveEmployees;
 	}
+
 
 	public long getTotalEmployees() {
 		return totalEmployees;
