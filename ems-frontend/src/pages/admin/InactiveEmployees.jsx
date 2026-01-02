@@ -57,19 +57,24 @@ export default function InactiveEmployees() {
     if (!confirm) return;
 
     permanentlyDeleteEmployee(id)
-      .then(() => {
-        setToast({
-          type: "success",
-          message: "Employee permanently deleted"
-        });
-        loadInactiveEmployees();
-      })
-      .catch(() =>
-        setToast({
-          type: "error",
-          message: "Failed to permanently delete employee"
-        })
-      );
+  .then(() => {
+    // 🔥 REMOVE FROM UI IMMEDIATELY
+    setEmployees(prev =>
+      prev.filter(emp => emp.id !== id)
+    );
+
+    setToast({
+      type: "success",
+      message: "Employee permanently deleted"
+    });
+  })
+  .catch(() =>
+    setToast({
+      type: "error",
+      message: "Failed to permanently delete employee"
+    })
+  );
+
   };
 
   // ---------- UI ----------
