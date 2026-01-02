@@ -30,5 +30,7 @@ public interface AdminService {
 	
 	void restoreEmployee(Long id);
 
+	void permanentlyDeleteEmployee(Long id);
+
 
 }

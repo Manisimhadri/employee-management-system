@@ -77,5 +77,10 @@ public class AdminController {
         return "Employee Restored Successfully";
     }
 
-    
+    @DeleteMapping("/employees/permanent/{id}")
+    public String permanentlyDeleteEmployee(@PathVariable Long id) {
+        adminService.permanentlyDeleteEmployee(id);
+        return "Employee permanently deleted";
+    }
+
 }

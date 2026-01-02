@@ -236,5 +236,20 @@ public class AdminServiceImpl implements AdminService{
         user.setStatus(Status.ACTIVE);
         userRepository.save(user);
     }
+    
+    //--------------DELETE PERMANANTLY-----------//
+    @Override
+    public void permanentlyDeleteEmployee(Long id) {
+
+        User user = userRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
+
+        if (user.getRole() != Role.EMPLOYEE) {
+            throw new BadRequestException("Cannot delete admin user");
+        }
+
+        userRepository.delete(user);
+    }
+
 
 }
