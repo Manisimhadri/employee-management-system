@@ -21,9 +21,7 @@ public class EmployeeDetails {
     private String designation;
     private Double salary;
     
-    @Enumerated(EnumType.STRING)
-    private Status status = Status.ACTIVE;
-
+    
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)

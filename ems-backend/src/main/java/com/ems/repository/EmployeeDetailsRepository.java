@@ -1,8 +1,6 @@
 package com.ems.repository;
 
 import com.ems.model.EmployeeDetails;
-import com.ems.model.Status;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -16,8 +14,5 @@ public interface EmployeeDetailsRepository extends JpaRepository<EmployeeDetails
     @Query("SELECT e.department, COUNT(e) FROM EmployeeDetails e GROUP BY e.department")
     List<Object[]> countEmployeesByDepartment();
     
-    List<EmployeeDetails> findByStatus(Status status);
-
-    long countByStatus(Status status);
-
+    
 }
