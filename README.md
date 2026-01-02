@@ -104,7 +104,7 @@ The project follows a clean separation between backend and frontend:
 #### 🔹 Configure Database
 Before running the backend, **update `application.properties`**:
 
-```properties
+properties
 spring.datasource.url=jdbc:mysql://localhost:3306/ems_db
 spring.datasource.username=YOUR_DB_USERNAME
 spring.datasource.password=YOUR_DB_PASSWORD
