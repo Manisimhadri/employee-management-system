@@ -38,6 +38,13 @@ public class AdminDashboardResponse {
 		return departmentWiseCount;
 	}
 	
-	
+	public long getActiveEmployees() {
+	    return activeEmployees;
+	}
+
+	public long getInactiveEmployees() {
+	    return inactiveEmployees;
+	}
+
 
 }

@@ -17,5 +17,8 @@ public interface UserRepository extends JpaRepository<User, Long>{
     boolean existsByRole(Role role);
     List<User> findByStatus(Status status);
     long countByStatus(Status status);
+    List<User> findByRoleAndStatus(Role role, Status status);
+    long countByRoleAndStatus(Role role, Status status);
+
 
 }

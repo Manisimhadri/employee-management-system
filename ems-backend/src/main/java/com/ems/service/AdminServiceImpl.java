@@ -42,7 +42,6 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public AdminDashboardResponse getDashboardData() {
 
-        long totalEmployees = userRepository.countByRole(Role.EMPLOYEE);
 
         Double salarySum = employeeDetailsRepository.getTotalSalary();
         double totalSalary = salarySum != null ? salarySum : 0;
@@ -50,8 +49,14 @@ public class AdminServiceImpl implements AdminService{
         List<Object[]> deptData = employeeDetailsRepository.countEmployeesByDepartment();
         Map<String, Long> deptCountMap = new HashMap<>();
         
-        long activeCount = userRepository.countByStatus(Status.ACTIVE);
-        long inactiveCount = userRepository.countByStatus(Status.INACTIVE);
+        long totalEmployees = userRepository.countByRole(Role.EMPLOYEE);
+
+        long activeCount =
+                userRepository.countByRoleAndStatus(Role.EMPLOYEE, Status.ACTIVE);
+
+        long inactiveCount =
+                userRepository.countByRoleAndStatus(Role.EMPLOYEE, Status.INACTIVE);
+
 
 
         if (deptData != null) {
@@ -108,7 +113,9 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<EmployeeResponse> getAllEmployees() {
 
-	    List<User> users = userRepository.findByStatus(Status.ACTIVE);
+		List<User> users =
+		        userRepository.findByRoleAndStatus(Role.EMPLOYEE, Status.ACTIVE);
+
 
 	    return users.stream().map(user -> {
 	        EmployeeDetails d = user.getEmployeeDetails();
