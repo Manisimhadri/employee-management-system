@@ -49,6 +49,10 @@ public class AdminServiceImpl implements AdminService{
 
         List<Object[]> deptData = employeeDetailsRepository.countEmployeesByDepartment();
         Map<String, Long> deptCountMap = new HashMap<>();
+        
+        long activeCount = userRepository.countByStatus(Status.ACTIVE);
+        long inactiveCount = userRepository.countByStatus(Status.INACTIVE);
+
 
         if (deptData != null) {
             for (Object[] row : deptData) {
@@ -100,26 +104,25 @@ public class AdminServiceImpl implements AdminService{
 
     // ---------- READ ALL ----------
 	@Override
-	public List<EmployeeResponse> getAllEmployees(){
-		return userRepository.findAll()
-				.stream()
-				.filter(u -> u.getRole() == Role.EMPLOYEE)
-				.map(u -> {
-					EmployeeDetails d = u.getEmployeeDetails();
-					
-					return new EmployeeResponse(
-							u.getId(),
-							u.getName(),
-							u.getEmail(),
-							u.getRole().name(),
-							d != null ? d.getDepartment() :null,
-							d != null ? d.getDesignation() : null,
-							d != null ? d.getSalary() : null
-									
-							);
-				})
-				.collect(Collectors.toList());
+	public List<EmployeeResponse> getAllEmployees() {
+
+	    List<User> users = userRepository.findByStatus(Status.ACTIVE);
+
+	    return users.stream().map(user -> {
+	        EmployeeDetails d = user.getEmployeeDetails();
+
+	        return new EmployeeResponse(
+	                user.getId(),
+	                user.getName(),
+	                user.getEmail(),
+	                user.getRole().name(),
+	                d != null ? d.getDepartment() : null,
+	                d != null ? d.getDesignation() : null,
+	                d != null ? d.getSalary() : null
+	        );
+	    }).toList();
 	}
+
 
     // ---------- READ ONE ----------
     @Override
@@ -160,8 +163,15 @@ public class AdminServiceImpl implements AdminService{
     // ---------- DELETE ----------
     @Override
     public void deleteEmployee(Long id) {
-        userRepository.deleteById(id);
+
+        User user = userRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
+
+        user.setStatus(Status.INACTIVE);
+
+        userRepository.save(user);
     }
+
     
     
     @Override
@@ -187,4 +197,35 @@ public class AdminServiceImpl implements AdminService{
     			);
     			
     }
+    
+    @Override
+    public List<EmployeeResponse> getEmployeesByStatus(Status status) {
+
+        List<User> users = userRepository.findByStatus(status);
+
+        return users.stream().map(user -> {
+            EmployeeDetails d = user.getEmployeeDetails();
+
+            return new EmployeeResponse(
+                    user.getId(),
+                    user.getName(),
+                    user.getEmail(),
+                    user.getRole().name(),
+                    d != null ? d.getDepartment() : null,
+                    d != null ? d.getDesignation() : null,
+                    d != null ? d.getSalary() : null
+            );
+        }).toList();
+    }
+
+    @Override
+    public void restoreEmployee(Long id) {
+
+        User user = userRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
+
+        user.setStatus(Status.ACTIVE);
+        userRepository.save(user);
+    }
+
 }
