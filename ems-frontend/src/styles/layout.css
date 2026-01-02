@@ -893,3 +893,13 @@ button.danger:hover {
   justify-content: flex-end;
   margin-top: 1rem;
 }
+
+
+.btn.restore {
+  background-color: #22c55e;
+  color: #fff;
+}
+
+.btn.restore:hover {
+  background-color: #16a34a;
+}

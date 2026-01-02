@@ -8,6 +8,8 @@ import Profile from "./pages/employee/Profile";
 import ChangePassword from "./pages/employee/ChangePassword";
 import AppShell from "./components/layout/AppShell";
 import ViewEmployee from "./pages/admin/ViewEmployee";
+import InactiveEmployees from "./pages/admin/InactiveEmployees";
+
 
 function ProtectedRoute({ children, allowedRole }) {
   const { token, role } = useAuth();
@@ -61,6 +63,19 @@ export default function App() {
             </ProtectedRoute>
          }
         />
+
+        <Route
+  path="/admin/inactive-employees"
+  element={
+    <ProtectedRoute allowedRole="ADMIN">
+      <AppShell>
+        <InactiveEmployees />
+      </AppShell>
+    </ProtectedRoute>
+  }
+/>
+
+
 
 
           {/* Employee routes */}

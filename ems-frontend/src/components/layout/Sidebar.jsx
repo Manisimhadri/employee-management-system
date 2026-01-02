@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Users, User, Key, LogOut } from "lucide-react";
+import { LayoutDashboard, Users, User, Key, LogOut,UserX } from "lucide-react";
 import { useAuth } from "../../context/useAuth";
 import adminLogo from "../../assets/admin-logo.png";
 import employeeLogo from "../../assets/employee-logo.png";
@@ -47,6 +47,17 @@ export default function Sidebar() {
               <Users size={18} />
               <span>Employees</span>
             </NavLink>
+
+            <NavLink
+              to="/admin/inactive-employees"
+              className={({ isActive }) =>
+                isActive ? "nav-item active" : "nav-item"
+              }
+            >
+              <UserX size={18} />
+              <span>Inactive Employees</span>
+            </NavLink>
+
           </>
         )}
 

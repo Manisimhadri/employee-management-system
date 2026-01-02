@@ -13,4 +13,15 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
+
+export const getInactiveEmployees = () =>
+    api.get('/admin/employees/inactive');
+
+export const restoreEmployee = (id) =>
+    api.put(`/admin/employees/restore/${id}`);
+
+export const permanentlyDeleteEmployee = (id) =>
+  api.delete(`/admin/employees/permanent/${id}`);
+
+
 export default api;

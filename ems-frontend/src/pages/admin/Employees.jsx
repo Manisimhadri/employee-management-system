@@ -46,24 +46,24 @@ export default function Employees() {
       .then(res => setEmployees(res.data));
   };
 
-  const deleteEmployee = async (id) => {
-  if (!window.confirm("Are you sure you want to delete this employee?")) return;
+  const deactivateEmployee = async (id) => {
+  if (!window.confirm("Are you sure you want to deactivate this employee?")) return;
 
   try {
     await api.delete(`/admin/employees/${id}`);
 
-    // 🔥 IMPORTANT FIX
     if (selectedEmployeeId === id) {
-      setSelectedEmployeeId(null); // close details modal
+      setSelectedEmployeeId(null);
     }
 
     refreshEmployees();
-    showToast("Employee deleted successfully");
+    showToast("Employee deactivated successfully");
   } catch (err) {
-    console.log("Failed to delete employee" + err);
-    showToast("Failed to delete employee", "error");
+    console.log("Failed to deactivate employee", err);
+    showToast("Failed to deactivate employee", "error");
   }
 };
+
 
 
   if (loading) return <p>Loading employees...</p>;
@@ -114,11 +114,11 @@ export default function Employees() {
       <button
         onClick={(e) => {
           e.stopPropagation(); // 🔥 IMPORTANT
-          deleteEmployee(emp.id);
+          deactivateEmployee(emp.id);
         }}
         className="danger"
       >
-        Delete
+        Deactivate
       </button>
 
     </td>
