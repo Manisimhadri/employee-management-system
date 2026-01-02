@@ -130,14 +130,17 @@ Backend will start at:
 http://localhost:9090
 
 
-🔹 Frontend (React)
+### 2️⃣ Frontend (React)
+
+#### Open terminal
 
 cd ems-frontend
 npm install
 npm run dev
-Frontend will start at:
 
+Frontend will start at:
 http://localhost:5173
+
 🔑 Default Login Credentials
 👨‍💼 Admin (Auto-Created)
  
@@ -180,7 +183,7 @@ Email notifications
 Docker & cloud deployment
 
 👨‍💻 Developed By
-Mani Simhadri
+Mani Anil Kumar Simhadri
 Full Stack Java Developer
 
 📌 This project demonstrates real-world full-stack development practices, clean architecture, and production-ready employee lifecycle management.
