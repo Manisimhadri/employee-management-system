@@ -903,3 +903,27 @@ button.danger:hover {
 .btn.restore:hover {
   background-color: #16a34a;
 }
+
+/* ===============================
+   Dark Mode Date Picker Fix
+================================ */
+
+[data-theme="dark"] input[type="date"] {
+  color-scheme: dark; /* ⭐ required for native UI */
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+}
+
+/* Calendar icon visibility */
+[data-theme="dark"]
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+/* Placeholder color consistency */
+[data-theme="dark"] input[type="date"]::placeholder {
+  color: var(--input-placeholder);
+}
