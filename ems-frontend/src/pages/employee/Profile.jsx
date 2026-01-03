@@ -108,6 +108,11 @@ export default function Profile() {
         </div>
 
         <div className="profile-row">
+          <span>Date of Birth</span>
+          <strong>{personal.dateOfBirth || "—"}</strong>
+        </div>
+
+        <div className="profile-row">
           <span>Emergency Contact</span>
           <strong>{personal.emergencyContact || "—"}</strong>
         </div>
@@ -150,6 +155,15 @@ export default function Profile() {
             onChange={handleChange}
             placeholder="Mother Name"
           />
+
+          <input
+            type="date"
+            name="dateOfBirth"
+            value={form.dateOfBirth || ""}
+            onChange={handleChange}
+            placeholder="Date of Birth"
+          />
+
           <input
             name="emergencyContact"
             value={form.emergencyContact || ""}
