@@ -92,6 +92,25 @@ export default function Profile() {
     return;
   }
 
+  // 🔴 Age validation (>= 18)
+  const dob = new Date(form.dateOfBirth);
+  const today = new Date();
+
+  let age = today.getFullYear() - dob.getFullYear();
+  const monthDiff = today.getMonth() - dob.getMonth();
+
+  if (
+    monthDiff < 0 ||
+    (monthDiff === 0 && today.getDate() < dob.getDate())
+  ) {
+    age--;
+  }
+
+  if (age < 18) {
+    showToast("Age must be 18 years or above", "error");
+    return;
+  }
+
   try {
     await api.put("/employee/personal-details", form);
     setPersonal(form);
