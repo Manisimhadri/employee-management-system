@@ -14,26 +14,82 @@ export default function CreateEmployeeModal({ onClose, onSuccess }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  /* ================= Field-wise Validation ================= */
   const handleChange = (e) => {
-    setForm(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
+    let { name, value } = e.target;
+
+    switch (name) {
+      case "name":
+      case "department":
+      case "designation":
+        value = value.replace(/[^a-zA-Z\s]/g, "").slice(0, 50);
+        break;
+
+      case "email":
+        value = value.trim();
+        break;
+
+      case "salary":
+        value = value.replace(/\D/g, "");
+        break;
+
+      default:
+        break;
+    }
+
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  /* ================= Submit Validation ================= */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
 
+    // 🔴 Empty field check
+    if (
+      !form.name ||
+      !form.email ||
+      !form.password ||
+      !form.department ||
+      !form.designation ||
+      !form.salary
+    ) {
+      setError("Please fill in all fields");
+      return;
+    }
+
+    // 🔴 Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      setError("Enter a valid email address");
+      return;
+    }
+
+    // 🔴 Password validation
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!passwordRegex.test(form.password)) {
+      setError(
+        "Password must be at least 8 characters with uppercase, lowercase, and number"
+      );
+      return;
+    }
+
+    // 🔴 Salary validation
+    if (Number(form.salary) <= 0) {
+      setError("Salary must be greater than zero");
+      return;
+    }
+
     try {
+      setLoading(true);
       await api.post("/admin/employees", {
         ...form,
         salary: Number(form.salary)
       });
 
-      onSuccess("Employee created successfully"); // refresh employees list
-      onClose();   // close modal
+      onSuccess("Employee created successfully");
+      onClose();
     } catch (err) {
       console.error(err);
       setError("Failed to create employee");
@@ -53,44 +109,43 @@ export default function CreateEmployeeModal({ onClose, onSuccess }) {
             placeholder="Name"
             value={form.name}
             onChange={handleChange}
-            required
           />
+
           <input
             name="email"
             placeholder="Email"
             value={form.email}
             onChange={handleChange}
-            required
           />
+
           <input
             type="password"
             name="password"
             placeholder="Password"
             value={form.password}
             onChange={handleChange}
-            required
           />
+
           <input
             name="department"
             placeholder="Department"
             value={form.department}
             onChange={handleChange}
-            required
           />
+
           <input
             name="designation"
             placeholder="Designation"
             value={form.designation}
             onChange={handleChange}
-            required
           />
+
           <input
-            type="number"
+            type="text"
             name="salary"
             placeholder="Salary"
             value={form.salary}
             onChange={handleChange}
-            required
           />
 
           {error && <p className="error">{error}</p>}
